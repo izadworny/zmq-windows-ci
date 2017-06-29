@@ -116,7 +116,7 @@ init:
   - cmd: md vs2008_h
   - cmd: cd "C:\projects\vs2008_h"
   - appveyor DownloadFile https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h
-  - cmd: copy stdint.h "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  #- cmd: copy stdint.h "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
   #VS2008 patch
   - cmd: cd "C:\projects\"
   - cmd: appveyor DownloadFile https://github.com/menpo/condaci/raw/master/vs2008_patch.zip
@@ -135,8 +135,8 @@ install:
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
   - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
-  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86_amd64
+  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%Platform%'"
   - cmd: set PYTHONPATH=%PYTHONPATH%
@@ -222,9 +222,9 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
-  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\bin\
-  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\include\
-  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\lib\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\bin\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
