@@ -225,8 +225,8 @@ after_build:
   - cmd: cd "C:\projects\"
   # Generating zip
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\bin\
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
+  #- cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
+  #- cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
