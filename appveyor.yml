@@ -14,6 +14,7 @@ environment:
       VC_VER: 9.0
       PYTHONPATH: c:\Python27\
       PYTHONPATHOMNI: "/cygdrive/c/Python27/python"
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc9
       configuration: Release
@@ -24,6 +25,7 @@ environment:
       VC_VER: 9.0
       PYTHONPATH: c:\Python27-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python27-x64/python"
+      WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc10
       configuration: Release
@@ -34,6 +36,7 @@ environment:
       VC_VER: 10.0
       PYTHONPATH: c:\Python33\
       PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
+      WITH_SODIUM: ON
     - platform: x64
       ARCH: x64-msvc10
       configuration: Release
@@ -44,6 +47,7 @@ environment:
       VC_VER: 10.0
       PYTHONPATH: c:\Python33-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
+      WITH_SODIUM: ON
     - platform: win32
       ARCH: win32-msvc12
       configuration: Release
@@ -54,6 +58,7 @@ environment:
       VC_VER: 13.0
       PYTHONPATH: c:\Python33\
       PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
+      WITH_SODIUM: ON
     - platform: x64
       ARCH: x64-msvc12
       configuration: Release
@@ -64,6 +69,7 @@ environment:
       VC_VER: 13.0
       PYTHONPATH: c:\Python33-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
+      WITH_SODIUM: ON
     - platform: win32
       ARCH: win32-msvc14
       configuration: Release
@@ -74,6 +80,7 @@ environment:
       VC_VER: 14.0
       PYTHONPATH: c:\Python35\
       PYTHONPATHOMNI: "/cygdrive/c/Python35/python"
+      WITH_SODIUM: ON
     - platform: x64
       ARCH: x64-msvc14
       configuration: Release
@@ -84,6 +91,7 @@ environment:
       VC_VER: 14.0
       PYTHONPATH: c:\Python35-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python35-x64/python"
+      WITH_SODIUM: ON
 init:
   # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
   - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
