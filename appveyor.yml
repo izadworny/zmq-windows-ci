@@ -104,7 +104,7 @@ init:
   - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
   - cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
   - cmd: set ZMQHPPDIR=C:\projects\zmq
-  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
+  - cmd: git clone --branch stable --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
   #Pthread-Win32
   - cmd: cd "C:\projects\"
   - cmd: md pthreads-win32
