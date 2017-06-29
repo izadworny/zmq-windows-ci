@@ -191,14 +191,16 @@ build_script:
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=x64 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2010\libzmq.sln
-  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc10 call buildbase.bat ..\vs2010\lbzmq.sln 10
+  - cmd: if %ARCH%==x64-msvc10 call buildbase.bat ..\vs2010\lbzmq.sln 10
+  #- cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=x64 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2010\libzmq.sln
+  #- cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2010\libzmq.sln
   - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2012\libzmq.sln
   - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2012\libzmq.sln
   - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2012\libzmq.sln
