@@ -99,7 +99,7 @@ init:
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # LibSodium
   - cmd: set LIBSODIUMDIR=C:\projects\libsodium
-  - cmd: git clone --branch stable --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
+  - cmd: git clone --branch master --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
   # ZMQ
   - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
   - cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
@@ -126,8 +126,8 @@ init:
   - cmd: cd "C:\projects\zmq-windows-ci"
   
 install:
-  #- cmd: if %ARCH%==x64-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
-  #- cmd: if %ARCH%==win32-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  - cmd: if %ARCH%==x64-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  - cmd: if %ARCH%==win32-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
@@ -182,8 +182,8 @@ after_build:
   - cmd: cd "C:\projects\"
   # Generating zip
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
-  #- cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
-  #- cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
