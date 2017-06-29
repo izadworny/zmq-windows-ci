@@ -194,7 +194,6 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   - cmd: if %ARCH%==x64-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   - cmd: if %ARCH%==x64-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   #- cmake --build ./ --target install  --config %configuration% 
 after_build:
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
