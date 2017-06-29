@@ -179,6 +179,19 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  #VS 2008 needs hand compile
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=LtcgDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=LtcgRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==x64-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==win32-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==win32-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==x64-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==x64-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   - cmd: buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   #- cmake --build ./ --target install  --config %configuration% 
 after_build:
