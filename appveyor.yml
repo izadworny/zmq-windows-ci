@@ -184,7 +184,6 @@ after_build:
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\share\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
