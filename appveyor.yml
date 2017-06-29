@@ -167,7 +167,7 @@ install:
   #- cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
 
 build_script:
-  - cmd: cd builds\msvc\build
+  - cmd: cd %LIBZMQ_SOURCEDIR%\builds\msvc\build
   - cmd: build.bat
   #- cmake --build ./ --target install  --config %configuration% 
 after_build:
@@ -179,8 +179,10 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\
-  - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
+  - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
   #RDP for finish
