@@ -126,14 +126,15 @@ init:
   - cmd: cd "C:\projects\zmq-windows-ci"
   
 install:
-  - cmd: if %ARCH%==x64-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
-  - cmd: if %ARCH%==win32-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  #- cmd: if %ARCH%==x64-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  #- cmd: if %ARCH%==win32-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc10 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  - cmd: if %ARCH%==x64-msvc10 call call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
   - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
@@ -170,17 +171,17 @@ install:
   - cmd: cd %LIBZMQ_SOURCEDIR%\builds\msvc\build
 
 build_script:
-  - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
-  - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
-  - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-  - cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
-  - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
-  - cmd: if %ARCH%==win32-msvc10 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
-  - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
-  - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
-  - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
-  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
-  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  #- cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+  #- cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  #- cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
+  #- cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  #- cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+  #- cmd: if %ARCH%==win32-msvc10 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  #- cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
+  #- cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
+  #- cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+  #- cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
+  #- cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
   #VS 2008 needs hand compile
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32 ..\vs2008\libzmq.sln
@@ -214,7 +215,7 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2015\libzmq.sln
   - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2015\libzmq.sln
   - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2015\libzmq.sln
-  #- cmake --build ./ --target install  --config %configuration% 
+  #- cmake --build ./ --target install  --config %configuration%
 after_build:
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   - cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
@@ -234,5 +235,5 @@ on_finish:
   #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
-  - path: ..\zmq_*.zip
+  - path: .\zmq_*.zip
  
