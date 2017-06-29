@@ -116,7 +116,7 @@ init:
   - cmd: md vs2008_h
   - cmd: cd "C:\projects\vs2008_h"
   - appveyor DownloadFile https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h
-  #- cmd: copy stdint.h "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  - cmd: copy stdint.h "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
   #VS2008 patch
   - cmd: cd "C:\projects\"
   - cmd: appveyor DownloadFile https://github.com/menpo/condaci/raw/master/vs2008_patch.zip
@@ -171,7 +171,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-  - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  - cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc10 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
@@ -188,12 +188,30 @@ build_script:
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: if %ARCH%==x64-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: if %ARCH%==win32-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: if %ARCH%==win32-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: if %ARCH%==x64-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
-  - cmd: if %ARCH%==x64-msvc14 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
+  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=x64 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2010\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc12 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc12 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=x64 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc12 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc12 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc12 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2012\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc14 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc14 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc14 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc14 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=x64 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=x64 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=x64 ..\vs2015\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc14 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=x64 ..\vs2015\libzmq.sln
   #- cmake --build ./ --target install  --config %configuration% 
 after_build:
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
@@ -204,9 +222,9 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
-  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
+  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\bin\
+  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\include\
+  - cmd: 7z a zmq_%ARCH%.zip %ZEROMQ_LIBRARY_DIR%\lib\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
