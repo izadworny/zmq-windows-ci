@@ -200,7 +200,7 @@ after_build:
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   - cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
   - cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
-  - cmd: move "%ZEROMQ_LIBRARY_DIR%\libzmq-%MSVCVERSION%-mt-4_2_3.lib" "%ZEROMQ_LIBRARY_DIR%\zmq.lib"
+  #- cmd: move "%ZEROMQ_LIBRARY_DIR%\libzmq-%MSVCVERSION%-mt-4_2_3.lib" "%ZEROMQ_LIBRARY_DIR%\zmq.lib"
   - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
