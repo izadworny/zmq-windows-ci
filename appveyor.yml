@@ -133,6 +133,7 @@ install:
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+  - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x86 /%configuration%
   - cmd: if %ARCH%==x64-msvc10 call call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
   - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
@@ -183,6 +184,7 @@ after_build:
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
   - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\share\
   - cmd: copy zmq_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
