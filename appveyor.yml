@@ -1,0 +1,165 @@
+version: 1.0.{build}
+
+image: Visual Studio 2015
+
+environment:
+  matrix:
+    - platform: win32
+      ARCH: win32-msvc9
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 9 2008"
+      MSVCVERSION: "v90"
+      MSVCYEAR: "vs2008"
+      MSVCABR: "9"
+      VC_VER: 9.0
+      PYTHONPATH: c:\Python27\
+      PYTHONPATHOMNI: "/cygdrive/c/Python27/python"
+    - platform: x64
+      ARCH: x64-msvc9
+      configuration: Release
+      CMAKE_GENERATOR: Visual Studio 9 2008 Win64
+      MSVCVERSION: v90
+      MSVCYEAR: vs2008
+      MSVCABR: 9
+      VC_VER: 9.0
+      PYTHONPATH: c:\Python27-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python27-x64/python"
+    - platform: win32
+      ARCH: win32-msvc10
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 10 2010"
+      MSVCVERSION: "v100"
+      MSVCYEAR: "vs2010"
+      MSVCABR: "10"
+      VC_VER: 10.0
+      PYTHONPATH: c:\Python33\
+      PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
+    - platform: x64
+      ARCH: x64-msvc10
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 10 2010 Win64"
+      MSVCVERSION: "v100"
+      MSVCYEAR: "vs2010"
+      MSVCABR: "10"
+      VC_VER: 10.0
+      PYTHONPATH: c:\Python33-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
+    - platform: win32
+      ARCH: win32-msvc12
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 12 2013"
+      MSVCVERSION: "v120"
+      MSVCYEAR: "vs2013"
+      MSVCABR: "13"
+      VC_VER: 13.0
+      PYTHONPATH: c:\Python33\
+      PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
+    - platform: x64
+      ARCH: x64-msvc12
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 12 2013 Win64"
+      MSVCVERSION: "v120"
+      MSVCYEAR: "vs2013"
+      MSVCABR: "13"
+      VC_VER: 13.0
+      PYTHONPATH: c:\Python33-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
+    - platform: win32
+      ARCH: win32-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015"
+      MSVCVERSION: "v140"
+      MSVCYEAR: "vs2015"
+      MSVCABR: "14"
+      VC_VER: 14.0
+      PYTHONPATH: c:\Python35\
+      PYTHONPATHOMNI: "/cygdrive/c/Python35/python"
+    - platform: x64
+      ARCH: x64-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
+      MSVCVERSION: "v140"
+      MSVCYEAR: "vs2015"
+      MSVCABR: "14"
+      VC_VER: 14.0
+      PYTHONPATH: c:\Python35-x64\
+      PYTHONPATHOMNI: "/cygdrive/c/Python35-x64/python"
+init:
+  # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
+  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  #RDP from start
+  #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  # LibSodium
+  - cmd: set LIBSODIUMDIR=C:\projects\libsodium
+  - cmd: git clone --branch stable --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
+  # ZMQ
+  - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
+  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
+  - cmd: set ZMQHPPDIR=C:\projects\zmq
+  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
+  #Pthread-Win32
+  - cmd: cd "C:\projects\"
+  - cmd: md pthreads-win32
+  - cmd: cd "C:\projects\"
+  - appveyor DownloadFile "http://www.mirrorservice.org/sites/sources.redhat.com/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip"
+  - cmd: 7z -y x pthreads-w32-2-9-1-release.zip -oC:\projects\pthreads-win32\
+  #VS2008 patch
+  - cmd: cd "C:\projects\"
+  - cmd: appveyor DownloadFile https://github.com/menpo/condaci/raw/master/vs2008_patch.zip
+  - cmd: 7z -y x vs2008_patch.zip -oC:\projects\vs2008_patch\
+  #- cmd: if %ARCH%==x64-msvc9 call C:\projects\vs2008_patch\setup_x64.bat
+  - cmd: if %ARCH%==x32-msvc9 call C:\projects\vs2008_patch\setup_x86.bat
+  - cmd: cd "C:\projects\zmq-windows-ci"
+  
+install: 
+  - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+  - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
+  - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
+  - cmd: if %ARCH%==win32-msvc10 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 /%configuration%
+  - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
+  - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
+  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
+  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  - cmd: echo "Generator='%CMAKE_GENERATOR%'"
+  - cmd: echo "Platform='%Platform%'"
+  - cmd: set PYTHONPATH=%PYTHONPATH%
+  # LibSodium
+  - cmd: if %WITH_SODIUM%==ON msbuild /v:detailed /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration%DLL %LIBSODIUMDIR%\builds\msvc\%MSVCYEAR%\libsodium\libsodium.vcxproj
+  - cmd: if %WITH_SODIUM%==ON set SODIUM_LIBRARY_DIR="%LIBSODIUMDIR%\bin\%Platform%\%Configuration%\%MSVCVERSION%\dynamic"
+  - cmd: if %WITH_SODIUM%==ON set SODIUM_INCLUDE_DIR="%LIBSODIUMDIR%\src\libsodium\include"
+  - cmd: if %WITH_SODIUM%==ON move "%SODIUM_LIBRARY_DIR%\libsodium.lib" "%SODIUM_LIBRARY_DIR%\sodium.lib"
+  # Zmq
+  - cmd: set LIBZMQ_BUILDDIR=C:\projects\build_libzmq
+  - cmd: md "%LIBZMQ_BUILDDIR%"
+  - cmd: cd "%LIBZMQ_BUILDDIR%"
+  - cmd: if %WITH_SODIUM%==ON cmake -D CMAKE_INCLUDE_PATH="%SODIUM_INCLUDE_DIR%" -D CMAKE_LIBRARY_PATH="%SODIUM_LIBRARY_DIR%" -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR%
+  - cmd: if %WITH_SODIUM%==OFF cmake -D CMAKE_INCLUDE_PATH="C:\projects\vs2008_h" -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR%
+  - cmd: if %ARCH%==win32-msvc9 msbuild /v:minimal /p:Configuration=%Configuration% ZeroMQ.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /v:minimal /p:Configuration=%Configuration% ZeroMQ.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
+  - cmd: if %ARCH%==win32-msvc10 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
+  - cmd: if %ARCH%==x64-msvc12 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
+  - cmd: if %ARCH%==x64-msvc14 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
+  - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
+  - cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
+  - cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
+  - cmd: move "%ZEROMQ_LIBRARY_DIR%\libzmq-*lib" "%ZEROMQ_LIBRARY_DIR%\zmq.lib"
+  - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
+  - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
+
+build_script:
+  - cmd: make export
+after_build:
+  - cmd: cd %LIBZMQ_BUILDDIR%
+  # Generating zip
+  - cmd: 7z a zmq_%ARCH%.zip %LIBZMQ_BUILDDIR%\
+
+on_finish:
+  #RDP for finish
+  #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+artifacts:
+  - path: ./*.zip
+ 
