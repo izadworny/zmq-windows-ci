@@ -54,7 +54,7 @@ environment:
       CMAKE_GENERATOR: "Visual Studio 12 2013"
       MSVCVERSION: "v120"
       MSVCYEAR: "vs2013"
-      MSVCABR: "13"
+      MSVCABR: "12"
       VC_VER: 13.0
       PYTHONPATH: c:\Python33\
       PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
@@ -65,7 +65,7 @@ environment:
       CMAKE_GENERATOR: "Visual Studio 12 2013 Win64"
       MSVCVERSION: "v120"
       MSVCYEAR: "vs2013"
-      MSVCABR: "13"
+      MSVCABR: "12"
       VC_VER: 13.0
       PYTHONPATH: c:\Python33-x64\
       PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
@@ -180,12 +180,14 @@ build_script:
   - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
   #VS 2008 needs hand compile
-  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=DynDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=DynRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=LtcgDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
-  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=LtcgRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 ..\vs2008\libzmq.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32 ..\vs2008\libzmq.sln
   - cmd: if %ARCH%==win32-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   - cmd: if %ARCH%==x64-msvc10 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
   - cmd: if %ARCH%==win32-msvc12 buildbase.bat ..\%MSVCYEAR%\libzmq.sln %MSVCABR%
