@@ -99,10 +99,10 @@ init:
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # LibSodium
   - cmd: set LIBSODIUMDIR=C:\projects\libsodium
-  - cmd: git clone --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
+  - cmd: git clone --branch stable --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
   # ZMQ
   - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
-  - cmd: git clone --branch stable --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
+  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
   - cmd: set ZMQHPPDIR=C:\projects\zmq
   - cmd: git clone --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
   #Pthread-Win32
