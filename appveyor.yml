@@ -97,9 +97,6 @@ init:
   - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
   #RDP from start
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-  # LibSodium
-  - cmd: set LIBSODIUMDIR=C:\projects\libsodium
-  - cmd: git clone --branch stable --depth 1 --quiet "https://github.com/jedisct1/libsodium.git" %LIBSODIUMDIR%
   # ZMQ
   - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
@@ -143,42 +140,19 @@ install:
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%Platform%'"
   - cmd: set PYTHONPATH=%PYTHONPATH%
-  # LibSodium
-  #- cmd: if %WITH_SODIUM%==ON msbuild /v:detailed /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration%DLL %LIBSODIUMDIR%\builds\msvc\%MSVCYEAR%\libsodium\libsodium.vcxproj
-  #- cmd: if %WITH_SODIUM%==ON set SODIUM_LIBRARY_DIR="%LIBSODIUMDIR%\bin\%Platform%\%Configuration%\%MSVCVERSION%\dynamic"
-  #- cmd: if %WITH_SODIUM%==ON set SODIUM_INCLUDE_DIR="%LIBSODIUMDIR%\src\libsodium\include"
-  #- cmd: if %WITH_SODIUM%==ON move "%SODIUM_LIBRARY_DIR%\libsodium.lib" "%SODIUM_LIBRARY_DIR%\sodium.lib"
   # Zmq
   - cmd: set LIBZMQ_BUILDDIR=C:\projects\build_libzmq
   - cmd: md "%LIBZMQ_BUILDDIR%"
   - cmd: cd "%LIBZMQ_BUILDDIR%"
-  - cmd: cl /?
-  #- cmd: if %WITH_SODIUM%==ON cmake -D CMAKE_INCLUDE_PATH="%SODIUM_INCLUDE_DIR%" -D CMAKE_LIBRARY_PATH="%SODIUM_LIBRARY_DIR%" -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE 
   - cmd: if NOT %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_VS_PLATFORM_TOOLSET:STRING=%MSVCVERSION%
   - cmd: if %ARCH%==x64-msvc10 cmake -DCMAKE_INCLUDE_PATH="C:\projects\vs2008_h" -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
-  #- cmd: if %ARCH%==win32-msvc9 msbuild /v:minimal /p:Configuration=%Configuration% ZeroMQ.sln
-  #- cmd: if %ARCH%==x64-msvc9 msbuild /v:minimal /p:Configuration=%Configuration% ZeroMQ.sln
-  #- cmd: if %ARCH%==win32-msvc10 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
-  #- cmd: if %ARCH%==x64-msvc10 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
-  #- cmd: if %ARCH%==win32-msvc12 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
-  #- cmd: if %ARCH%==x64-msvc12 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
-  #- cmd: if %ARCH%==win32-msvc14 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
-  #- cmd: if %ARCH%==x64-msvc14 msbuild /v:minimal /maxcpucount:%NUMBER_OF_PROCESSORS% /p:Configuration=%Configuration% libzmq.vcxproj
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   - cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
   - cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
-  #- cmd: move "%ZEROMQ_LIBRARY_DIR%\libzmq-*lib" "%ZEROMQ_LIBRARY_DIR%\zmq.lib"
-  #- cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
-  #- cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
 
 build_script:
-  #VS 2008 needs hand compile
   - cmake --build ./ --target install  --config %configuration%
 after_build:
-  #- cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
-  #- cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
-  #- cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
-  #- cmd: move "%ZEROMQ_LIBRARY_DIR%\libzmq-%MSVCVERSION%-mt-4_2_3.lib" "%ZEROMQ_LIBRARY_DIR%\zmq.lib"
   - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
