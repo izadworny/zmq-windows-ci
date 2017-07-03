@@ -13,7 +13,6 @@ environment:
       MSVCABR: "9"
       VC_VER: 9.0
       PYTHONPATH: c:\Python27\
-      PYTHONPATHOMNI: "/cygdrive/c/Python27/python"
       WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc9
@@ -24,7 +23,6 @@ environment:
       MSVCABR: 9
       VC_VER: 9.0
       PYTHONPATH: c:\Python27-x64\
-      PYTHONPATHOMNI: "/cygdrive/c/Python27-x64/python"
       WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc10
@@ -35,8 +33,7 @@ environment:
       MSVCABR: "10"
       VC_VER: 10.0
       PYTHONPATH: c:\Python33\
-      PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc10
       configuration: Release
@@ -46,8 +43,7 @@ environment:
       MSVCABR: "10"
       VC_VER: 10.0
       PYTHONPATH: c:\Python33-x64\
-      PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc12
       configuration: Release
@@ -57,8 +53,7 @@ environment:
       MSVCABR: "12"
       VC_VER: 13.0
       PYTHONPATH: c:\Python33\
-      PYTHONPATHOMNI: "/cygdrive/c/Python33/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc12
       configuration: Release
@@ -68,8 +63,7 @@ environment:
       MSVCABR: "12"
       VC_VER: 13.0
       PYTHONPATH: c:\Python33-x64\
-      PYTHONPATHOMNI: "/cygdrive/c/Python33-x64/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc14
       configuration: Release
@@ -79,8 +73,7 @@ environment:
       MSVCABR: "14"
       VC_VER: 14.0
       PYTHONPATH: c:\Python35\
-      PYTHONPATHOMNI: "/cygdrive/c/Python35/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc14
       configuration: Release
@@ -90,11 +83,12 @@ environment:
       MSVCABR: "14"
       VC_VER: 14.0
       PYTHONPATH: c:\Python35-x64\
-      PYTHONPATHOMNI: "/cygdrive/c/Python35-x64/python"
-      WITH_SODIUM: ON
+      WITH_SODIUM: OFF
 init:
   # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
+  - del "C:\Program Files (x86)\MSBuild\4.0\Microsoft.Common.Targets\ImportAfter\Xamarin.Common.targets"
   - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  - del "C:\Program Files (x86)\MSBuild\12.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
   #RDP from start
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # ZMQ
@@ -159,7 +153,7 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\Release\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\bin\Release\libzmq-v100-mt-4_1_7.dll
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\Release\libzmq-Windows7.1SDK-mt-4_1_7.dll %LIBZMQ_BUILDDIR%\bin\Release\libzmq-v100-mt-4_1_7.dll
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-4_1_7.exp
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-4_1_7.lib
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-s-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-s-4_1_7.lib
