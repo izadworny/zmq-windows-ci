@@ -159,14 +159,14 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\libzmq-Windows7.1SDK-mt-4_1_7.dll %LIBZMQ_BUILDDIR%\bin\libzmq-v100-mt-4_1_7.dll
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-4_1_7.exp
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-4_1_7.lib
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-s-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-s-4_1_7.lib
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\libzmq-Windows7.1SDK-mt-gd-4_1_7.dll %LIBZMQ_BUILDDIR%\bin\libzmq-v100-mt-gd-4_1_7.dll
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-gd-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-gd-4_1_7.exp
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-gd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-gd-4_1_7.lib
-  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-sgd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-sgd-4_1_7.lib
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\Release\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\bin\Release\libzmq-v100-mt-4_1_7.dll
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-4_1_7.exp
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-4_1_7.lib
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Release\libzmq-Windows7.1SDK-mt-s-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Release\libzmq-v100-mt-s-4_1_7.lib
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.dll %LIBZMQ_BUILDDIR%\bin\Debug\libzmq-v100-mt-gd-4_1_7.dll
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.exp
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.lib
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-sgd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-sgd-4_1_7.lib
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
