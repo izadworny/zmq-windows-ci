@@ -146,7 +146,7 @@ install:
   - cmd: md "%LIBZMQ_BUILDDIR%"
   - cmd: cd "%LIBZMQ_BUILDDIR%"
   - cmd: if NOT %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_VS_PLATFORM_TOOLSET:STRING=%MSVCVERSION%
-  - cmd: if %ARCH%==x64-msvc10 cmake -DCMAKE_INCLUDE_PATH="C:\projects\vs2008_h" -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
+  - cmd: if %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   #- cmd: set ZEROMQ_LIBRARY_DIR="%LIBZMQ_BUILDDIR%\lib\%Configuration%"
   - cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
@@ -159,6 +159,10 @@ after_build:
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\bin\libzmq-Windows7.1SDK-mt-4_1_7.dll %LIBZMQ_BUILDDIR%\bin\libzmq-v100-mt-4_1_7.dll
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-4_1_7.exp
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-4_1_7.lib
+  - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\libzmq-Windows7.1SDK-mt-s-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\libzmq-v100-mt-s-4_1_7.lib
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\bin\
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
   - cmd: 7z a zmq-4.1.7_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
@@ -169,5 +173,5 @@ on_finish:
   #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
-  - path: .\zmq_*.zip
+  - path: .\zmq-4.1.7_*.zip
  
