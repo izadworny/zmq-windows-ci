@@ -94,7 +94,10 @@ init:
   # ZMQ
   - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
-  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-1.git "%LIBZMQ_SOURCEDIR%"
+  #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-1.git "%LIBZMQ_SOURCEDIR%"
+  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-x.git "%LIBZMQ_SOURCEDIR%"
+  - cmd: cd "%LIBZMQ_SOURCEDIR%"
+  - cmd: git checkout 98df4b6182b1334d3b67602569330af8687e8b68
   - cmd: set ZMQHPPDIR=C:\projects\zmq
   - cmd: git clone --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
   #Pthread-Win32
