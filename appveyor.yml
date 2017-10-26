@@ -99,6 +99,7 @@ init:
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-x.git "%LIBZMQ_SOURCEDIR%"
   - cmd: cd C:\projects\
   - appveyor DownloadFile "https://github.com/zeromq/zeromq4-x/archive/v4.0.5.zip"
+  - cmd: dir
   - cmd: 7z -y x zeromq4-x-4.0.5.zip
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
   - cmd: set ZMQHPPDIR=C:\projects\zmq
