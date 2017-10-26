@@ -92,12 +92,15 @@ init:
   #RDP from start
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # ZMQ
-  - cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
+  #- cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
+  - cmd: set LIBZMQ_SOURCEDIR=C:\projects\zeromq-4.0.5
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-1.git "%LIBZMQ_SOURCEDIR%"
-  - cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-x.git "%LIBZMQ_SOURCEDIR%"
+  #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-x.git "%LIBZMQ_SOURCEDIR%"
+  - cmd: cd C:\projects\
+  - appveyor DownloadFile "https://archive.org/download/zeromq_4.0.5/zeromq-4.0.5.zip"
+  - cmd: 7z -y x zeromq-4.0.5.zip
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
-  - cmd: git checkout 98df4b6182b1334d3b67602569330af8687e8b68
   - cmd: set ZMQHPPDIR=C:\projects\zmq
   - cmd: git clone --depth 1 --quiet https://github.com/zeromq/cppzmq.git %ZMQHPPDIR%
   #Pthread-Win32
