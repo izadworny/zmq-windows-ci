@@ -146,15 +146,29 @@ install:
   - cmd: set LIBZMQ_BUILDDIR=C:\projects\build_libzmq
   - cmd: md "%LIBZMQ_BUILDDIR%"
   - cmd: cd "%LIBZMQ_BUILDDIR%"
-  - cmd: if NOT %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_VS_PLATFORM_TOOLSET:STRING=%MSVCVERSION%
-  - cmd: if %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
+  #- cmd: if NOT %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_VS_PLATFORM_TOOLSET:STRING=%MSVCVERSION%
+  #- cmd: if %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   - cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
 
 build_script:
-  - cmake --build ./ --target install --config Debug
-  - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 Release
-  - cmake --build ./ --target install --config Release
+  #- cmake --build ./ --target install --config Debug
+  #- cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 Release
+  #- cmake --build ./ --target install --config Release
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 builds\msvc\msvc.sln
+  - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32  builds\msvc\msvc.sln
+  - cmd: if %ARCH%==win32-msvc10 msbuild builds\msvc\msvc10.sln
+  - cmd: if %ARCH%==x64-msvc10 msbuild builds\msvc\msvc10.sln
+  - cmd: if %ARCH%==win32-msvc12 msbuild builds\msvc\msvc10.sln
+  - cmd: if %ARCH%==x64-msvc12 msbuild builds\msvc\msvc10.sln
+  - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln
+  - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\msvc10.sln
 after_build:
   - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
