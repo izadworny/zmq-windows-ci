@@ -155,6 +155,7 @@ build_script:
   #- cmake --build ./ --target install --config Debug
   #- cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 Release
   #- cmake --build ./ --target install --config Release
+  - cmd: cd "%LIBZMQ_SOURCEDIR%"
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32  builds\msvc\msvc.sln
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 builds\msvc\msvc.sln
