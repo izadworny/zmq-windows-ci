@@ -157,13 +157,19 @@ build_script:
   #- cmake --build ./ --target install --config Release
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
-  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_debug
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.dll
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.pdb
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq.ilk "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.ilk
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=Release /p:Platform=Win32  builds\msvc\msvc.sln
-  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_release
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.dll
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticDebug /p:Platform=Win32 builds\msvc\msvc.sln
-  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_debug_static
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib\Debug
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32  builds\msvc\msvc.sln
-  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_release_static
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Release /p:Platform=Win32  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=StaticDebug /p:Platform=Win32  builds\msvc\msvc.sln
@@ -189,7 +195,8 @@ after_build:
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.lib
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-sgd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-sgd-4_1_7.lib
   - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
-  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib*\
+  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
+  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\bin\
   - cmd: copy zmq-4.0.5_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
