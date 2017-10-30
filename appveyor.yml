@@ -172,7 +172,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v90-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 msbuild /m /v:n /p:Configuration=StaticRelease /p:Platform=Win32  builds\msvc\msvc.sln
-  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_Release
+  - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release
   - cmd: if %ARCH%==win32-msvc9 md lib\Release
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
@@ -192,7 +192,7 @@ build_script:
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v90-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=StaticRelease /p:Platform=x64  builds\msvc\msvc.sln
-  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_Release
+  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release
   - cmd: if %ARCH%==x64-msvc9 md lib\Release
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
@@ -216,10 +216,6 @@ after_build:
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.exp
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.lib
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-sgd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-sgd-4_1_7.lib
-  - cmd: dir %LIBZMQ_SOURCEDIR%\lib\Debug
-  - cmd: dir %LIBZMQ_SOURCEDIR%\lib\Release
-  - cmd: dir %LIBZMQ_SOURCEDIR%\bin\Release
-  - cmd: dir %LIBZMQ_SOURCEDIR%\bin\Release
   - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
   - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
   - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\bin\
@@ -227,7 +223,7 @@ after_build:
 
 on_finish:
   #RDP for finish
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
   - path: .\zmq-4.0.5_*.zip
