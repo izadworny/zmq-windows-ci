@@ -175,8 +175,8 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln
   - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\msvc10.sln
 after_build:
-  - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_BUILDDIR%\include\"
-  - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_BUILDDIR%\include\"
+  - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_SOURCEDIR%\include\"
+  - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_SOURCEDIR%\include\"
   - cmd: cd "C:\projects\"
   # Generating zip
   
@@ -188,9 +188,8 @@ after_build:
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.exp %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.exp
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-gd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-gd-4_1_7.lib
   - cmd: if %ARCH%==x64-msvc10 move %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-Windows7.1SDK-mt-sgd-4_1_7.lib %LIBZMQ_BUILDDIR%\lib\Debug\libzmq-v100-mt-sgd-4_1_7.lib
-  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_BUILDDIR%
-  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_BUILDDIR%\include\
-  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_BUILDDIR%\lib\
+  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\include\
+  - cmd: 7z a zmq-4.0.5_%ARCH%.zip %LIBZMQ_SOURCEDIR%\lib\
   - cmd: copy zmq-4.0.5_%ARCH%.zip C:\projects\zmq-windows-ci\
 
 on_finish:
@@ -198,5 +197,5 @@ on_finish:
   #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
-  - path: .\zmq-4.1.7_*.zip
+  - path: .\zmq-4.0.5_*.zip
  
