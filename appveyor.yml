@@ -220,8 +220,8 @@ build_script:
   - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v100-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v100-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==x64-msvc10 msbuild builds\msvc\msvc10.sln /p:Configuration="Release"
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==x64-msvc1 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==x64-msvc1 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v100-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v100-mt-4_0_5.exp
   - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v100-mt-4_0_5.dll
@@ -234,8 +234,8 @@ build_script:
   - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v120-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v120-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==win32-msvc12 msbuild builds\msvc\msvc10.sln /p:Configuration="Release"
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v120-mt-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v120-mt-4_0_5.exp
   - cmd: if %ARCH%==win32-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v120-mt-4_0_5.dll
@@ -248,8 +248,8 @@ build_script:
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v120-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v120-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==x64-msvc12 msbuild builds\msvc\msvc10.sln /p:Configuration="Release"
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v120-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v120-mt-4_0_5.exp
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v120-mt-4_0_5.dll
@@ -262,8 +262,8 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Release"
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.exp
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.dll
@@ -276,8 +276,8 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Release"
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
-  - cmd: if %ARCH%==win32-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.exp
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.dll
