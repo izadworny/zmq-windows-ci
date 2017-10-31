@@ -179,8 +179,8 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\Debug "%LIBZMQ_SOURCEDIR%"\lib\Debug
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
- 
- - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
+  
+  - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=Win32  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.dll
