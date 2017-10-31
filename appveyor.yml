@@ -137,9 +137,9 @@ install:
   - cmd: if %ARCH%==win32-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" amd64
+  - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%Platform%'"
   - cmd: set PYTHONPATH=%PYTHONPATH%
@@ -292,6 +292,17 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.dll
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.pdb
   
+  - cmd: if %ARCH%==x64-msvc14 msbuild /v:n /p:Configuration=StaticDebug builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_Debug
+  - cmd: if %ARCH%==x64-msvc14 md lib\Debug
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v140-mt-gd-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib_Debug\libzmq-v140-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v140-mt-gd-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc14 msbuild /v:n /p:Configuration=StaticRelease builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_Release
+  - cmd: if %ARCH%==x64-msvc14 md lib\Release
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib_Release\Debug "%LIBZMQ_SOURCEDIR%"\lib\Debug
+  - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v140-mt-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc10 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v140-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.lib
 after_build:
   - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_SOURCEDIR%\include\"
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_SOURCEDIR%\include\"
