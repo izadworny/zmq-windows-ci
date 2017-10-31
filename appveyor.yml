@@ -4,66 +4,6 @@ image: Visual Studio 2015
 
 environment:
   matrix:
-    - platform: x64
-      ARCH: x64-msvc10
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 10 2010 Win64"
-      MSVCVERSION: "v100"
-      MSVCYEAR: "vs2010"
-      MSVCABR: "10"
-      VC_VER: 10.0
-      PYTHONPATH: c:\Python33-x64\
-      WITH_SODIUM: OFF
-    - platform: x64
-      ARCH: x64-msvc14
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
-      MSVCVERSION: "v140"
-      MSVCYEAR: "vs2015"
-      MSVCABR: "14"
-      VC_VER: 14.0
-      PYTHONPATH: c:\Python35-x64\
-      WITH_SODIUM: OFF
-    - platform: x64
-      ARCH: x64-msvc12
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 12 2013 Win64"
-      MSVCVERSION: "v120"
-      MSVCYEAR: "vs2013"
-      MSVCABR: "12"
-      VC_VER: 13.0
-      PYTHONPATH: c:\Python33-x64\
-      WITH_SODIUM: OFF
-    - platform: win32
-      ARCH: win32-msvc10
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 10 2010"
-      MSVCVERSION: "v100"
-      MSVCYEAR: "vs2010"
-      MSVCABR: "10"
-      VC_VER: 10.0
-      PYTHONPATH: c:\Python33\
-      WITH_SODIUM: OFF
-    - platform: win32
-      ARCH: win32-msvc12
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 12 2013"
-      MSVCVERSION: "v120"
-      MSVCYEAR: "vs2013"
-      MSVCABR: "12"
-      VC_VER: 13.0
-      PYTHONPATH: c:\Python33\
-      WITH_SODIUM: OFF
-    - platform: win32
-      ARCH: win32-msvc14
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 14 2015"
-      MSVCVERSION: "v140"
-      MSVCYEAR: "vs2015"
-      MSVCABR: "14"
-      VC_VER: 14.0
-      PYTHONPATH: c:\Python35\
-      WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc9
       configuration: Release
@@ -83,6 +23,66 @@ environment:
       MSVCABR: 9
       VC_VER: 9.0
       PYTHONPATH: c:\Python27-x64\
+      WITH_SODIUM: OFF
+    - platform: win32
+      ARCH: win32-msvc10
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 10 2010"
+      MSVCVERSION: "v100"
+      MSVCYEAR: "vs2010"
+      MSVCABR: "10"
+      VC_VER: 10.0
+      PYTHONPATH: c:\Python33\
+      WITH_SODIUM: OFF
+    - platform: x64
+      ARCH: x64-msvc10
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 10 2010 Win64"
+      MSVCVERSION: "v100"
+      MSVCYEAR: "vs2010"
+      MSVCABR: "10"
+      VC_VER: 10.0
+      PYTHONPATH: c:\Python33-x64\
+      WITH_SODIUM: OFF
+    - platform: win32
+      ARCH: win32-msvc12
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 12 2013"
+      MSVCVERSION: "v120"
+      MSVCYEAR: "vs2013"
+      MSVCABR: "12"
+      VC_VER: 13.0
+      PYTHONPATH: c:\Python33\
+      WITH_SODIUM: OFF
+    - platform: x64
+      ARCH: x64-msvc12
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 12 2013 Win64"
+      MSVCVERSION: "v120"
+      MSVCYEAR: "vs2013"
+      MSVCABR: "12"
+      VC_VER: 13.0
+      PYTHONPATH: c:\Python33-x64\
+      WITH_SODIUM: OFF
+    - platform: win32
+      ARCH: win32-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015"
+      MSVCVERSION: "v140"
+      MSVCYEAR: "vs2015"
+      MSVCABR: "14"
+      VC_VER: 14.0
+      PYTHONPATH: c:\Python35\
+      WITH_SODIUM: OFF
+    - platform: x64
+      ARCH: x64-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015 Win64"
+      MSVCVERSION: "v140"
+      MSVCYEAR: "vs2015"
+      MSVCABR: "14"
+      VC_VER: 14.0
+      PYTHONPATH: c:\Python35-x64\
       WITH_SODIUM: OFF
 init:
   # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
@@ -280,7 +280,6 @@ build_script:
   - cmd: if %ARCH%==x64-msvc12 msbuild /v:n /p:Configuration=StaticDebug /p:Platform=Win32 builds\msvc\libzmq\libzmq.vcxproj
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v120-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc12 msbuild /v:n /p:Configuration=StaticRelease /p:Platform=Win32 builds\msvc\libzmq\libzmq.vcxproj
-  - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\lib_Release
   - cmd: if %ARCH%==x64-msvc12 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v120-mt-4_0_5.lib
   
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Debug"
