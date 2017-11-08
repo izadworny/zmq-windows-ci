@@ -4,6 +4,8 @@ image: Visual Studio 2015
 
 environment:
   matrix:
+    allow_failures:
+    - ARCH: x64-msvc9
     - platform: x64
       ARCH: x64-msvc9
       configuration: Release
