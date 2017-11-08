@@ -139,7 +139,8 @@ install:
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-  - cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v3.5;%path%
+  #- cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v3.5;%path%
+  - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc10 call call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
@@ -194,16 +195,14 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
   
   - cmd: if %ARCH%==x64-msvc9 set VC_PROJECT_ENGINE_NOT_USING_REGISTRY_FOR_INIT=1
-  - cmd: if %ARCH%==x64-msvc9 md bin\Debug
-  - cmd: if %ARCH%==x64-msvc9 md bin\Release
-  - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\libzmq\libzmq.vcproj
+  - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.lib "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.ilk "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.ilk
-  - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Release /p:Platform=x64  builds\msvc\libzmq\libzmq.vcproj
+  - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Release /p:Platform=x64  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Release
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Release
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.lib
