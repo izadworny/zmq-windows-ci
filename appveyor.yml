@@ -207,7 +207,7 @@ build_script:
   #- cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\inproc_lat\inproc_lat.vcproj
   #- cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\inproc_thr\inproc_thr.vcproj
   - cmd: if %ARCH%==x64-msvc9 md bin\Debug
-  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
+  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
   #- cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-s-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.lib "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.lib
@@ -216,7 +216,7 @@ build_script:
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq.ilk "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v90-mt-gd-4_0_5.ilk
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Release /p:Platform=x64  builds\msvc\libzmq\libzmq.vcproj
   - cmd: if %ARCH%==x64-msvc9 md bin\Release
-  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib\*.* "%LIBZMQ_SOURCEDIR%"\bin\Release
   #- cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Release
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.lib "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.dll
