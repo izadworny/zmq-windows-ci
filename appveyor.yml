@@ -194,6 +194,8 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
   
   - cmd: if %ARCH%==x64-msvc9 set VC_PROJECT_ENGINE_NOT_USING_REGISTRY_FOR_INIT=1
+  - cmd: if %ARCH%==x64-msvc9 md bin\Debug
+  - cmd: if %ARCH%==x64-msvc9 md bin\Release
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\libzmq\libzmq.vcproj
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
