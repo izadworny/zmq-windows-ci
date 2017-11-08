@@ -4,16 +4,6 @@ image: Visual Studio 2015
 
 environment:
   matrix:
-    - platform: win32
-      ARCH: win32-msvc9
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 9 2008"
-      MSVCVERSION: "v90"
-      MSVCYEAR: "vs2008"
-      MSVCABR: "9"
-      VC_VER: 9.0
-      PYTHONPATH: c:\Python27\
-      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc9
       configuration: Release
@@ -23,6 +13,16 @@ environment:
       MSVCABR: 9
       VC_VER: 9.0
       PYTHONPATH: c:\Python27-x64\
+      WITH_SODIUM: OFF
+    - platform: win32
+      ARCH: win32-msvc9
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 9 2008"
+      MSVCVERSION: "v90"
+      MSVCYEAR: "vs2008"
+      MSVCABR: "9"
+      VC_VER: 9.0
+      PYTHONPATH: c:\Python27\
       WITH_SODIUM: OFF
     - platform: win32
       ARCH: win32-msvc10
@@ -193,6 +193,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib_Release\libzmq-v90-mt-s-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-s-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v90-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v90-mt-4_0_5.lib
   
+  - cmd: if %ARCH%==x64-msvc9 set VC_PROJECT_ENGINE_NOT_USING_REGISTRY_FOR_INIT=1
   - cmd: if %ARCH%==x64-msvc9 msbuild /v:n /p:Configuration=Debug /p:Platform=x64  builds\msvc\msvc.sln
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\lib "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc9 move "%LIBZMQ_SOURCEDIR%"\bin\*.* "%LIBZMQ_SOURCEDIR%"\bin\Debug
