@@ -139,8 +139,8 @@ install:
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
-  - cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
-  #- cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v3.5;%path%
+  #- cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
+  - cmd: if %ARCH%==x64-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v3.5;%path%
   - cmd: if %ARCH%==win32-msvc10 call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc10 call call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
