@@ -122,20 +122,20 @@ init:
   - cmd: 7z -y x vs2008_patch.zip -oC:\projects\vs2008_patch\
   - cmd: if %ARCH%==x64-msvc9 call C:\projects\vs2008_patch\setup_x64.bat
   - cmd: if %ARCH%==x32-msvc9 call C:\projects\vs2008_patch\setup_x86.bat
-  # use modified project for x64 vc9
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\msvc.sln "%LIBZMQ_SOURCEDIR%"\builds\msvc\msvc.sln
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\libzmq.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\c_local_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_lat\c_local_lat.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\c_local_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_thr\c_local_thr.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\c_remote_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_lat\c_remote_lat.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\c_remote_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_thr\c_remote_thr.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\inproc_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\inproc_lat\inrpoc_lat.vcproj
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\inproc_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\inproc_thr\inproc_thr.vcproj
   - cmd: cd "C:\projects\zmq-windows-ci"
   
 install:
   - cmd: if %ARCH%==x64-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
   - cmd: if %ARCH%==win32-msvc9 xcopy C:\projects\zmq-windows-ci\patch "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\include"
+  # use modified project for x64 vc9
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\msvc.sln "%LIBZMQ_SOURCEDIR%"\builds\msvc\msvc.sln
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\libzmq.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\c_local_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_lat\c_local_lat.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\c_local_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_thr\c_local_thr.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\c_remote_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_lat\c_remote_lat.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\c_remote_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\c_local_thr\c_remote_thr.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\inproc_lat.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\inproc_lat\inrpoc_lat.vcproj
+  - cmd: if %ARCH%==x64-msvc9 move /Y C:\projects\zmq-windows-ci\patch\inproc_thr.vcproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\inproc_thr\inproc_thr.vcproj
   - cmd: if %ARCH%==win32-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc9 set path=C:\Windows\Microsoft.NET\Framework\v4.0.30319;%path%
   - cmd: if %ARCH%==x64-msvc9 call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat"
