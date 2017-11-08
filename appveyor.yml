@@ -4,8 +4,6 @@ image: Visual Studio 2015
 
 environment:
   matrix:
-    allow_failures:
-    - ARCH: x64-msvc9
     - platform: x64
       ARCH: x64-msvc9
       configuration: Release
@@ -86,6 +84,9 @@ environment:
       VC_VER: 14.0
       PYTHONPATH: c:\Python35-x64\
       WITH_SODIUM: OFF
+matrix:      
+    allow_failures:
+    - ARCH: x64-msvc9
 init:
   # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
   - del "C:\Program Files (x86)\MSBuild\4.0\Microsoft.Common.Targets\ImportAfter\Xamarin.Common.targets"
