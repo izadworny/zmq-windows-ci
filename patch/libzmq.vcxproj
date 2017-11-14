@@ -21,7 +21,7 @@
       <Configuration>StaticDebug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="StaticDebug|Win32">
+    <ProjectConfiguration Include="StaticDebug|x64">
       <Configuration>StaticDebug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
@@ -29,7 +29,7 @@
       <Configuration>StaticRelease</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="StaticRelease|Win32">
+    <ProjectConfiguration Include="StaticRelease|x64">
       <Configuration>StaticRelease</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
