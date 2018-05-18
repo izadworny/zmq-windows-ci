@@ -1,9 +1,19 @@
 version: 1.0.{build}
 
-image: Visual Studio 2015
+image: Visual Studio 2017
 
 environment:
   matrix:
+    - platform: x64
+      ARCH: x64-msvc15
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 15 2017 Win64"
+      MSVCVERSION: "v141"
+      MSVCYEAR: "vs2017"
+      MSVCABR: "15"
+      VC_VER: 15.0
+      PYTHONPATH: c:\Python35-x64\
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc10
       configuration: Release
@@ -47,10 +57,10 @@ environment:
     - platform: x64
       ARCH: x64-msvc9
       configuration: Release
-      CMAKE_GENERATOR: Visual Studio 9 2008 Win64
-      MSVCVERSION: v90
-      MSVCYEAR: vs2008
-      MSVCABR: 9
+      CMAKE_GENERATOR: "Visual Studio 9 2008 Win64"
+      MSVCVERSION: "v90"
+      MSVCYEAR: "vs2008"
+      MSVCABR: "9"
       VC_VER: 9.0
       PYTHONPATH: c:\Python27-x64\
       WITH_SODIUM: OFF
@@ -154,6 +164,9 @@ install:
   - cmd: if %ARCH%==x64-msvc12 call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  #- cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio 15.0\VC\vcvarsall.bat" x64
   - cmd: echo "Generator='%CMAKE_GENERATOR%'"
   - cmd: echo "Platform='%Platform%'"
   - cmd: set PYTHONPATH=%PYTHONPATH%
@@ -385,6 +398,32 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v140-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==x64-msvc14 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\x64
+
+  - cmd: if %ARCH%==x64-msvc15 msbuild builds\msvc\msvc10.sln /p:Configuration="Debug" /p:PlatformToolset=v141 /p:Platform=x64
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64 "%LIBZMQ_SOURCEDIR%"\bin\Debug
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\lib\x64 "%LIBZMQ_SOURCEDIR%"\lib\Debug
+  - cmd: if %ARCH%==x64-msvc15 rm "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq_d.lib
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq_d.exp "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v141-mt-gd-4_0_5.exp
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v141-mt-gd-4_0_5.dll
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v141-mt-gd-4_0_5.pdb
+  - cmd: if %ARCH%==x64-msvc15 C:\projects\zmq-windows-ci\patch\dll2lib_imp.bat 64 %LIBZMQ_SOURCEDIR%\bin\Debug\libzmq-v141-mt-gd-4_0_5.dll
+  - cmd: if %ARCH%==x64-msvc15 msbuild builds\msvc\msvc10.sln /p:Configuration="Release" /p:PlatformToolset=v141 /p:Platform=x64
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64 "%LIBZMQ_SOURCEDIR%"\bin\Release
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\lib\x64 "%LIBZMQ_SOURCEDIR%"\lib\Release
+  - cmd: if %ARCH%==x64-msvc15 rm "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v141-mt-4_0_5.exp
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v141-mt-4_0_5.dll
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v141-mt-4_0_5.pdb
+  - cmd: if %ARCH%==x64-msvc15 C:\projects\zmq-windows-ci\patch\dll2lib_imp.bat 64 %LIBZMQ_SOURCEDIR%\bin\Release\libzmq-v141-mt-4_0_5.dll
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+  - cmd: if %ARCH%==x64-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+  - cmd: if %ARCH%==x64-msvc15 msbuild /v:n /p:Configuration=StaticDebug /p:Platform=x64 builds\msvc\libzmq\libzmq.vcxproj /p:PlatformToolset=v141
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v141-mt-sgd-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc15 msbuild /v:n /p:Configuration=StaticRelease /p:Platform=x64 builds\msvc\libzmq\libzmq.vcxproj /p:PlatformToolset=v141
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v141-mt-s-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v141-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v141-mt-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v141-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v141-mt-gd-4_0_5.lib
+  - cmd: if %ARCH%==x64-msvc15 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\x64
 after_build:
   - cmd: move "%ZMQHPPDIR%\zmq.hpp" "%LIBZMQ_SOURCEDIR%\include\"
   - cmd: move "%ZMQHPPDIR%\zmq_addon.hpp" "%LIBZMQ_SOURCEDIR%\include\"
