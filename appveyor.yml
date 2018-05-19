@@ -8,6 +8,16 @@ image: Visual Studio 2017
 
 environment:
   matrix:
+    - platform: win32
+      ARCH: win32-msvc14
+      configuration: Release
+      CMAKE_GENERATOR: "Visual Studio 14 2015"
+      MSVCVERSION: "v140"
+      MSVCYEAR: "vs2015"
+      MSVCABR: "14"
+      VC_VER: 14.0
+      PYTHONPATH: c:\Python35\
+      WITH_SODIUM: OFF
     - platform: x64
       ARCH: x64-msvc15
       configuration: Release
@@ -37,16 +47,6 @@ environment:
       MSVCABR: "14"
       VC_VER: 14.0
       PYTHONPATH: c:\Python35-x64\
-      WITH_SODIUM: OFF
-    - platform: win32
-      ARCH: win32-msvc14
-      configuration: Release
-      CMAKE_GENERATOR: "Visual Studio 14 2015"
-      MSVCVERSION: "v140"
-      MSVCYEAR: "vs2015"
-      MSVCABR: "14"
-      VC_VER: 14.0
-      PYTHONPATH: c:\Python35\
       WITH_SODIUM: OFF
 
 init:
@@ -94,8 +94,8 @@ build_script:
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
 
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="Debug" /p:PlatformToolset=v140
-  - cmd: ls -la "%LIBZMQ_SOURCEDIR%"
-#  - cmd: ls -la "%LIBZMQ_SOURCEDIR%"\lib
+  - cmd: ls -la "%LIBZMQ_SOURCEDIR%"\bin\Win32
+  - cmd: ls -la "%LIBZMQ_SOURCEDIR%"\lib\Win32
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Debug
 #  - cmd: if %ARCH%==win32-msvc14 rm "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq_d.lib
