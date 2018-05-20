@@ -32,7 +32,7 @@ environment:
       ARCH: win32-msvc15
       configuration: Release
       CMAKE_GENERATOR: "Visual Studio 15 2017"
-      MSVCVERSION: "c141"
+      MSVCVERSION: "v141"
       MSVCYEAR: "vs2017"
       MSVCABR: "15"
       VC_VER: 15.0
