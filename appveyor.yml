@@ -92,11 +92,13 @@ install:
 
 build_script:
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
-
-  - ps:  (get-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props) | foreach-object {$_ -replace "\\\.\.\\libzmq", "\\\.\."} | set-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props
-  - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=%MSVCVERSION%
   - cmd: md bin\Debug
   - cmd: md lib\Debug
+  - cmd: md bin\Release
+  - cmd: md lib\Release
+  - ps:  (get-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props) | foreach-object {$_ -replace "\\\.\.\\libzmq", "\\\.\."} | set-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props
+
+  - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=%MSVCVERSION%
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.exp
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.dll
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.pdb
@@ -104,8 +106,6 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\*.exe "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\*.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynRelease" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Release
-  - cmd: md lib\Release
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-%MSVCVERSION%-mt-4_2_5.exp
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.dll
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.pdb
@@ -119,8 +119,6 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\Win32
 
   - cmd: if %ARCH%==win32-msvc15 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Debug
-  - cmd: md lib\Debug
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.exp
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.dll
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.pdb
@@ -128,8 +126,6 @@ build_script:
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\*.exe "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\%MSVCVERSION%\dynamic\*.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==win32-msvc15 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynRelease" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Release
-  - cmd: md lib\Release
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-%MSVCVERSION%-mt-4_2_5.exp
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.dll
   - cmd: if %ARCH%==win32-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.pdb
@@ -143,8 +139,6 @@ build_script:
   - cmd: if %ARCH%==win32-msvc15 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\Win32
     
   - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Debug
-  - cmd: md lib\Debug
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.exp
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.dll
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.pdb
@@ -152,8 +146,6 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\*.exe "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\*.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynRelease" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Release
-  - cmd: md lib\Release
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-%MSVCVERSION%-mt-4_2_5.exp
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.dll
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.pdb
@@ -167,8 +159,6 @@ build_script:
   - cmd: if %ARCH%==x64-msvc14 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\x64
 
   - cmd: if %ARCH%==x64-msvc15 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Debug
-  - cmd: md lib\Debug
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.exp
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.dll
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-%MSVCVERSION%-mt-gd-4_2_5.pdb
@@ -176,8 +166,6 @@ build_script:
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\*.exe "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Debug\%MSVCVERSION%\dynamic\*.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\
   - cmd: if %ARCH%==x64-msvc15 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynRelease" /p:PlatformToolset=%MSVCVERSION%
-  - cmd: md bin\Release
-  - cmd: md lib\Release
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.exp "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-%MSVCVERSION%-mt-4_2_5.exp
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.dll "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.dll
   - cmd: if %ARCH%==x64-msvc15 move "%LIBZMQ_SOURCEDIR%"\bin\x64\Release\%MSVCVERSION%\dynamic\libzmq.pdb "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-%MSVCVERSION%-mt-4_2_5.pdb
