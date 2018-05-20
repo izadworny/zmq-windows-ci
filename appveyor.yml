@@ -115,7 +115,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /t:libzmq /p:Configuration="StaticDebug" /p:PlatformToolset=v140
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Debug\v140\static\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v140-mt-sgd-4_2_5.lib
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /t:libzmq /p:Configuration="StaticRelease" /p:PlatformToolset=v140
-  - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Relese\v140\static\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-s-4_2_5.lib
+  - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\Release\v140\static\libzmq.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-s-4_2_5.lib
 #  - cmd: if %ARCH%==win32-msvc14 C:\projects\zmq-windows-ci-0pjfi\patch\dll2lib_imp.bat 32 %LIBZMQ_SOURCEDIR%\bin\Release\libzmq-v140-mt-4_2_5.dll
 #  - cmd: if %ARCH%==win32-msvc14 msbuild /m /v:n /p:Configuration=StaticDebug builds\msvc\vs2015\libzmq\libzmq.vcxproj /p:PlatformToolset=v140
 #  - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32\libzmq_d.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v140-mt-sgd-4_2_5.lib
