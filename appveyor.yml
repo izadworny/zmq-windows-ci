@@ -93,7 +93,7 @@ install:
 build_script:
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
 
-  - ps:  if (${env:ARCH} -Match "win32-msvc14") {(get-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props) | foreach-object {$_ -replace "\\..\\..\libzmq", "\\.."} | set-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props }
+  - ps:  if (${env:ARCH} -Match "win32-msvc14") {(get-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props) | foreach-object {$_ -replace "\\\..\\\..\libzmq", "\\\.."} | set-content ${env:LIBZMQ_SOURCEDIR}\builds\msvc\vs2015\libzmq.import.props }
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\vs2015\libzmq.sln /p:Configuration="DynDebug" /p:PlatformToolset=v140
   - cmd: md bin\Debug
   - cmd: md lib\Debug
