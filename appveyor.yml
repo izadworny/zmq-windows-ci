@@ -24,7 +24,7 @@ environment:
       VC_VER: 14.0
       PYTHONPATH: c:\Python35\
       WITH_SODIUM: OFF
-matrix:      
+matrix:
     allow_failures:
     - ARCH: x64-msvc9
 init:
@@ -55,8 +55,9 @@ init:
   - cmd: 7z -y x pthreads-w32-2-9-1-release.zip -oC:\projects\pthreads-win32\
 
   - cmd: cd "C:\projects\zmq-windows-ci-x87qy"
-  
+
 install:
+  - cmd: move /Y C:\projects\zmq-windows-ci-x87qy\patch\libzmq.vcxproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcxproj
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
   - cmd: if %ARCH%==x64-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
@@ -68,6 +69,7 @@ install:
   - cmd: md "%LIBZMQ_BUILDDIR%"
   - cmd: cd "%LIBZMQ_BUILDDIR%"
   #- cmd: if NOT %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_VS_PLATFORM_TOOLSET:STRING=%MSVCVERSION%
+  #- cmd: if %ARCH%==x64-msvc10 cmake -D CMAKE_CXX_FLAGS_RELEASE="/MT" -D CMAKE_CXX_FLAGS_DEBUG="/MTd" -G "%CMAKE_GENERATOR%" %LIBZMQ_SOURCEDIR% -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE -DBUILD_SHARED_LIBS=TRUE -DCMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_INIT:STRING=/machine:x64 -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_MODULE_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_SHARED_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64" -DCMAKE_STATIC_LINKER_FLAGS:STRING="' /machine:x64 '" -DCMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING="/INCREMENTAL:NO /machine:x64"
   - cmd: set ZEROMQ_INCLUDE_DIR="%LIBZMQ_SOURCEDIR%\include"
   #- cmd: xcopy "%LIBZMQ_SOURCEDIR%\include" "%LIBZMQ_BUILDDIR%\include\"
 
@@ -85,7 +87,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.dll "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.dll
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq_d.pdb "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.pdb
   - cmd: if %ARCH%==win32-msvc14 C:\projects\zmq-windows-ci-x87qy\patch\dll2lib_imp.bat 32 %LIBZMQ_SOURCEDIR%\bin\Debug\libzmq-v140-mt-gd-4_0_5.dll
-  - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Release" /p:PlatformToolset=v140 
+  - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Release" /p:PlatformToolset=v140
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Release
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Release
   - cmd: if %ARCH%==win32-msvc14 rm "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq.lib
@@ -100,7 +102,7 @@ build_script:
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Release\libzmq-v140-mt-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Release\libzmq-v140-mt-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Debug\libzmq-v140-mt-gd-4_0_5.lib "%LIBZMQ_SOURCEDIR%"\lib\Debug\libzmq-v140-mt-gd-4_0_5.lib
   - cmd: if %ARCH%==win32-msvc14 RD /S /Q "%LIBZMQ_SOURCEDIR%"\bin\Win32
-    
+
   - cmd: if %ARCH%==x64-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Debug" /p:PlatformToolset=v140 /p:Platform=x64
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\x64 "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==x64-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\x64 "%LIBZMQ_SOURCEDIR%"\lib\Debug
@@ -142,4 +144,3 @@ on_finish:
 
 artifacts:
   - path: .\zmq-4.0.5_*.zip
- 
