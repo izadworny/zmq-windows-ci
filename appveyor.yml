@@ -54,7 +54,7 @@ init:
   - appveyor DownloadFile "http://www.mirrorservice.org/sites/sources.redhat.com/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip"
   - cmd: 7z -y x pthreads-w32-2-9-1-release.zip -oC:\projects\pthreads-win32\
 
-  - cmd: cd "C:\projects\zmq-windows-ci"
+#  - cmd: cd "C:\projects\zmq-windows-ci"
   
 install:
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
@@ -76,7 +76,7 @@ build_script:
   #- cmd: if %ARCH%==x64-msvc10 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 Release
   #- cmake --build ./ --target install --config Release
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
-        
+
   - cmd: if %ARCH%==win32-msvc14 msbuild builds\msvc\msvc10.sln /p:Configuration="Debug" /p:PlatformToolset=v140
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\bin\Win32 "%LIBZMQ_SOURCEDIR%"\bin\Debug
   - cmd: if %ARCH%==win32-msvc14 move "%LIBZMQ_SOURCEDIR%"\lib\Win32 "%LIBZMQ_SOURCEDIR%"\lib\Debug
