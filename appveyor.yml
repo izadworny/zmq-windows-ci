@@ -73,7 +73,7 @@ init:
   - cmd: cd "%LIBZMQ_SOURCEDIR%"
   
 install:
-  - cmd: move /Y C:\projects\zmq-windows-ci\patch\libzmq.vcxproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcxproj
+  - cmd: move /Y "%LIBZMQ_SOURCEDIR%"\patch\libzmq.vcxproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcxproj
   # use modified project for x64 vc9
   - cmd: if %ARCH%==win32-msvc14 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
   - cmd: if %ARCH%==win32-msvc15 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
