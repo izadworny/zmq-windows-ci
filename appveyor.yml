@@ -52,7 +52,7 @@ init:
   #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # ZMQ
   #- cmd: set LIBZMQ_SOURCEDIR=C:\projects\libzmq
-  - cmd: set LIBZMQ_SOURCEDIR=C:\projects\zeromq4-x-4.0.5
+  - cmd: set LIBZMQ_SOURCEDIR=C:\projects\zmq-windows-ci-2sci7
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/libzmq.git "%LIBZMQ_SOURCEDIR%"
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-1.git "%LIBZMQ_SOURCEDIR%"
   #- cmd: git clone --depth 1 --quiet https://github.com/zeromq/zeromq4-x.git "%LIBZMQ_SOURCEDIR%"
