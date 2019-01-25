@@ -70,7 +70,7 @@ init:
   - appveyor DownloadFile "http://www.mirrorservice.org/sites/sources.redhat.com/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip"
   - cmd: 7z -y x pthreads-w32-2-9-1-release.zip -oC:\projects\pthreads-win32\
   - cmd: cd "C:\projects\"
-  - cmd: cd "C:\projects\zmq-windows-ci"
+  - cmd: cd "%LIBZMQ_SOURCEDIR%"
   
 install:
   - cmd: move /Y C:\projects\zmq-windows-ci\patch\libzmq.vcxproj "%LIBZMQ_SOURCEDIR%"\builds\msvc\libzmq\libzmq.vcxproj
